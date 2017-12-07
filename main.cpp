@@ -1,20 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <cassert>
-
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
-
-using namespace std;
-
-int MAXIMUM_SIZE = 1000;
-int MAXIMUM_LENGTH = 40;
-
-char** create_array(void);
-int read_input(char**, istream&);
-bool is_unique(char**, char*, int);
-void sort(char**, int);
+#include "main.h"
 
 int main(int argc, char** argv)
 {
@@ -33,6 +17,8 @@ int main(int argc, char** argv)
     int value = read_input(arrayTest, input_text);
 
     sort(arrayTest, value);
+    write_output(arrayTest, output_text, value);
+    removeArray(arrayTest, value);
 
     input_text.close();
     output_text.close();
@@ -77,8 +63,6 @@ int read_input(char** words, istream& inp)
         }
     }
 
-    cout << i << endl;
-
     return i;
 }
 
@@ -107,4 +91,21 @@ void sort(char** array, int n)
 
         array[hole] = value;
     }
+}
+
+void write_output(char** words, ostream& outp, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        outp << words[i] << "   " << strlen(words[i]) << endl;;
+    }
+}
+
+void removeArray(char** words, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        delete[] words[i];
+    }
+    delete[] words;
 }
