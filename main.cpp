@@ -14,6 +14,7 @@ int MAXIMUM_LENGTH = 40;
 char** create_array(void);
 int read_input(char**, istream&);
 bool is_unique(char**, char*, int);
+void sort(char**, int);
 
 int main(int argc, char** argv)
 {
@@ -29,7 +30,9 @@ int main(int argc, char** argv)
     ofstream output_text(argv[2]);
 
     char** arrayTest = create_array();
-    read_input(arrayTest, input_text);
+    int value = read_input(arrayTest, input_text);
+
+    sort(arrayTest, value);
 
     input_text.close();
     output_text.close();
@@ -75,9 +78,6 @@ int read_input(char** words, istream& inp)
     }
 
     cout << i << endl;
-    cout << words[0] << endl;
-    cout << words[1] << endl;
-    cout << words[2] << endl;
 
     return i;
 }
@@ -89,6 +89,22 @@ bool is_unique(char** words, char* cur_word, int n)
         if (strcmp(words[i], cur_word) == 0)
             return false;
     }
-
     return true;
+}
+
+void sort(char** array, int n)
+{
+    for (int i = 1; i < n; i++)
+    {
+        char* value = array[i];
+        int hole = i;
+
+        while (hole > 0 && *(array[hole - 1]) > *value)
+        {
+            array[hole] = array[hole -1];
+            hole--;
+        }
+
+        array[hole] = value;
+    }
 }
